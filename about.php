@@ -1,9 +1,7 @@
 <?php
 
 include 'config.php';
-
 session_start();
-
 
 ?>
 
@@ -21,13 +19,76 @@ session_start();
    <!-- custom css file link  -->
    <link rel="stylesheet" href="css/style.css">
 
+   <style>
+      .box {
+         position: relative;
+         overflow: hidden;
+      }
+
+      .box img {
+         width: 100%;
+         height: auto;
+         transition: transform 0.3s ease;
+      }
+
+      .box:hover img {
+         transform: scale(1.1);
+      }
+
+      .box::before {
+         content: "";
+         position: absolute;
+         top: 0;
+         left: 0;
+         width: 100%;
+         height: 100%;
+         background: rgba(0, 0, 0, 0.5);
+         opacity: 0;
+         transition: opacity 0.3s ease;
+      }
+
+      .box:hover::before {
+         opacity: 1;
+      }
+
+      .box::after {
+         content: attr(data-text);
+         position: absolute;
+         top: 50%;
+         left: 50%;
+         transform: translate(-50%, -50%);
+         color: #fff;
+         font-size: 18px;
+         font-weight: bold;
+         text-align: center;
+         opacity: 0;
+         transition: opacity 0.3s ease;
+      }
+
+      .box:hover::after {
+         opacity: 1;
+      }
+
+      .box-container {
+         display: flex;
+         flex-wrap: wrap;
+         gap: 20px;
+      }
+
+      .reviews .box:hover::before {
+         opacity: 0;
+      }
+
+      
+   </style>
+
 </head>
 <body>
    
 <?php include 'header.php'; ?>
 
 <div class="heading">
-   <h3>Tentang kami</h3>
+   <h3>tentang kami</h3>
    <p> <a href="home.php">Beranda</a> / Tentang kami </p>
 </div>
 
@@ -57,7 +118,7 @@ session_start();
 $wirainspirasi = "Wirainspirasi?"; 
 ?>
 
-<h1 class="title">Apa Kata Mereka Tentang <spa class="highlight"><?php echo $wirainspirasi; ?></spa</h1>
+<h1 class="title">Apa Kata Mereka Tentang <span class="highlight"><?php echo $wirainspirasi; ?></span</h1>
 
    <div class="box-container">
 
@@ -147,43 +208,43 @@ $wirainspirasi = "Wirainspirasi?";
 
 <div class="box-container">
 
-   <div class="box">
-      <img src="images/mentor1.jpeg" alt="">
-      <h3>Muthmainnah, S.T.</h3>
-      <p>Experience: 3 years</p>
-   </div>
+      <div class="box" data-text="Telah berpengalaman mengajar pada beberapa Universitas">
+         <img src="images/mentor1.jpeg" alt="">
+         <h3>Muthmainnah, S.T.</h3>
+         <p>Experience: 3 years</p>
+      </div>
 
-   <div class="box">
-      <img src="images/mentor2.jpeg" alt="">
-      <h3>Kayla, S.M.B.</h3>
-      <p>Experience: 5 years</p>
-   </div>
+      <div class="box" data-text="Sukes membuka usaha dengan 1000 cabang di Indonesia">
+         <img src="images/mentor2.jpeg" alt="">
+         <h3>Kayla, S.Ds.</h3>
+         <p>Experience: 3 years</p>
+      </div>
 
-   <div class="box">
-      <img src="images/mentor3.jpg" alt="">
-      <h3>Harry, S.M.B.</h3>
-      <p>Experience: 7 years</p>
-   </div>
+      <div class="box" data-text="Telah berpengalaman mengajar pada beberapa Universitas">
+         <img src="images/mentor3.jpg" alt="">
+         <h3>Harry, S.kom.</h3>
+         <p>Experience: 9 years</p>
+      </div>
 
-   <div class="box">
-      <img src="images/mentor4.jpeg" alt="">
-      <h3>Aufa, S.M.B.</h3>
-      <p>Experience: 4 years</p>
-   </div>
+      <div class="box" data-text="Sukes membuka usaha dengan 1000 cabang di Indonesia">
+         <img src="images/mentor4.jpeg" alt="">
+         <h3>Aufa, S.Bis.</h3>
+         <p>Experience: 4 years</p>
+      </div>
 
-   <div class="box">
-      <img src="images/mentor5.jpg" alt="">
-      <h3>Zaki, S.M.B.</h3>
-      <p>Experience: 6 years</p>
-   </div>
+      <div class="box" data-text="Sukes membuka usaha dengan 1000 cabang di Indonesia">
+         <img src="images/mentor5.jpg" alt="">
+         <h3>Zaki, S.M.B.</h3>
+         <p>Experience: 2 years</p>
+      </div>
 
-   <div class="box">
-      <img src="images/mentor6.jpeg" alt="">
-      <h3>Fazry, S.M.B.</h3>
-      <p>Experience: 8 years</p>
-   </div>
+      <div class="box" data-text="Telah berpengalaman mengajar pada beberapa Universitas">
+         <img src="images/mentor6.jpeg" alt="">
+         <h3>Fazry, S.M.B.</h3>
+         <p>Experience: 1 years</p>
+      </div>
 
-</div>
+   </div>
 
 </section>
 
