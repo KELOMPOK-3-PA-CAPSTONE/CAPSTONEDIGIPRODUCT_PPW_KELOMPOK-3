@@ -109,7 +109,7 @@ if (!isset($_SESSION['user_id'])) {
    </div>
 
    <section class="placed-orders">
-      <h1 class="title">Placed Orders</h1>
+      <h1 class="title">Pesanan anda</h1>
       <div class="box-container">
          <?php
          $user_id = $_SESSION['user_id'];
