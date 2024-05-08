@@ -137,14 +137,14 @@ if (!isset($_SESSION['user_id'])) {
                   <p>Metode pembayaran: <span><?php echo $fetch_orders['method']; ?></span></p>
                   <p>Harga: <span>Rp<?php echo $total_price; ?>.000</span></p>
                   <p>Status pembayaran: <span style="color:<?php echo $payment_status == 'pending' ? 'red' : 'green'; ?>"><?php echo $payment_status == 'pending' ? 'Menunggu verifikasi admin' : $payment_status; ?></span></p>
-                  <?php if ($video_url) : ?>
-                     <!-- Tombol "Tonton Video" -->
-                     <button class="watch-video-btn" <?php echo $payment_status == 'pending' ? 'disabled' : ''; ?> data-video-url="<?php echo $video_url; ?>">Tonton Video</button>
-                  <?php endif; ?>
-                  <!-- Tombol "Link Komunitas" -->
+                    <!-- Tombol video -->
                   <?php if ($community_link) : ?>
-                     <a href="<?php echo $community_link; ?>" class="watch-video-btn" target="_blank">Link Komunitas</a>
-                  <?php endif; ?>
+                     <button class="watch-video-btn" <?php echo $payment_status == 'pending' ? 'disabled' : ''; ?> data-video-url="<?php echo $video_url; ?>">Tonton Video</button>
+                 
+                  <!-- tombol komunitas -->
+                  <a href="<?php echo $community_link; ?>" class="watch-video-btn" <?php echo $payment_status == 'pending' ? 'disabled' : ''; ?>>Lihat Komunitas</a>        
+                
+                   <?php endif; ?>
                </div>
          <?php
             }
