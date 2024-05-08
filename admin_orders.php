@@ -81,6 +81,7 @@ if (isset($_GET['delete'])) {
          while ($fetch_orders = mysqli_fetch_assoc($select_orders)) {
       ?>
       <div class="box">
+         <p>Nama kelas: <span><?php echo $fetch_orders['product_name']; ?></span></p>
          <p>User ID: <span><?php echo $fetch_orders['user_id']; ?></span></p>
          <p>TGL Pemesanan: <span><?php echo $fetch_orders['placed_on']; ?></span></p>
          <p>Alamat: <span><?php echo $fetch_orders['address']; ?></span></p>
