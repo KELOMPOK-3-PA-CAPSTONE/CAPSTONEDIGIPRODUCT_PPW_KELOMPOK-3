@@ -1,5 +1,4 @@
 <?php
-
 include 'config.php';
 session_start();
 
@@ -43,7 +42,7 @@ if(isset($_POST['submit'])){
       }
 
    }else{
-      $message[] = 'incorrect email or password!';
+      $message[] = 'Incorrect email or password!';
    }
 
 }
@@ -63,44 +62,39 @@ if(isset($_COOKIE['user_email'])) {
    <meta charset="UTF-8">
    <meta http-equiv="X-UA-Compatible" content="IE=edge">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>login</title>
-
-   <!-- font awesome cdn link  -->
+   <title>Login</title>
+   <!-- Font Awesome CDN link  -->
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-
-   <!-- custom css file link  -->
+   <!-- Custom CSS file link  -->
    <link rel="stylesheet" href="css/style.css">
-
+   <style>
+      /* CSS untuk mengatur ukuran kotak "Remember Me" */
+      .remember-me {
+         margin-top: 10px; /* Berikan margin atas agar terpisah dari inputan */
+      }
+      .remember-me label {
+         display: inline-block;
+         width: auto;
+         margin-bottom: 0; /* Hilangkan margin bawah agar sesuai dengan kotak input */
+      }
+      .remember-me input[type="checkbox"] {
+         margin-right: 5px; /* Berikan margin ke kanan agar sesuai dengan tata letak */
+      }
+   </style>
 </head>
 <body>
-
-<?php
-if(isset($message)){
-   foreach($message as $message){
-      echo '
-      <div class="message">
-         <span>'.$message.'</span>
-         <i class="fas fa-times" onclick="this.parentElement.remove();"></i>
-      </div>
-      ';
-   }
-}
-?>
- <div class="form-container">
-
-<form action="" method="post">
-   <h3>login now</h3>
-   <input type="email" name="email" placeholder="enter your email" required class="box" value="<?php echo $remembered_email; ?>">
-   <input type="password" name="password" placeholder="enter your password" required class="box">
-   <div class="remember-me">
-      <input type="checkbox" id="remember" name="remember">
-      <label for="remember">Remember Me</label>
+   <div class="form-container">
+      <form action="" method="post">
+         <h3>Login Now</h3>
+         <input type="email" name="email" placeholder="Enter your email" required class="box" value="<?php echo $remembered_email; ?>">
+         <input type="password" name="password" placeholder="Enter your password" required class="box">
+         <div class="remember-me">
+            <input type="checkbox" id="remember" name="remember">
+            <label for="remember">Remember Me</label>
+         </div>
+         <input type="submit" name="submit" value="Login Now" class="btn">
+         <p>Don't have an account? <a href="register.php">Register Now</a></p>
+      </form>
    </div>
-   <input type="submit" name="submit" value="login now" class="btn">
-   <p>don't have an account? <a href="register.php">register now</a></p>
-</form>
-
-</div>
-
 </body>
 </html>

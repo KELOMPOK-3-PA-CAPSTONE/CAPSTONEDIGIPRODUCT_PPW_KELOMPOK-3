@@ -11,28 +11,16 @@ if (!isset($_SESSION['admin_id'])) {
     exit;
 }
 
-// Ambil nama-nama produk yang ada
-$query = "SELECT DISTINCT name FROM products";
-$result = mysqli_query($conn, $query);
-$productNames = [];
-
-if ($result && mysqli_num_rows($result) > 0) {
-    while ($row = mysqli_fetch_assoc($result)) {
-        $productNames[] = $row['name'];
-    }
-} else {
-    // Handle jika query tidak mengembalikan hasil yang diharapkan
-    $productNames = []; // Inisialisasi variabel $productNames sebagai array kosong
-}
-
 // Pesan kesalahan
 $errors = [];
+$success_message = "";
 
-// Periksa apakah tombol submit ditekan
+// Periksa apakah tombol submit untuk menambahkan materi ditekan
 if (isset($_POST['add_video'])) {
-    $product_name = $_POST['product_name'];
+    // Detail materi yang dimasukkan
+    $product_name = mysqli_real_escape_string($conn, $_POST['product_name']);
 
-    // Detail file yang diunggah
+    // Detail file video yang diunggah
     $video_name = $_FILES['video']['name'];
     $video_tmp = $_FILES['video']['tmp_name'];
     $video_size = $_FILES['video']['size'];
@@ -65,13 +53,34 @@ if (isset($_POST['add_video'])) {
                 $query = "UPDATE `products` SET `lesson_video` = '$video_file' WHERE `name` = '$product_name'";
                 $result = mysqli_query($conn, $query);
                 if ($result) {
-                    $message = "Video berhasil diunggah.";
+                    $success_message = "Video berhasil diunggah untuk produk '$product_name'.";
                 } else {
                     $errors[] = "Gagal mengunggah video. Silakan coba lagi.";
                 }
             } else {
                 $errors[] = "Terjadi kesalahan saat mengunggah video.";
             }
+        }
+    }
+}
+
+// Periksa apakah tombol submit untuk menambahkan link komunitas ditekan
+if (isset($_POST['add_community_link'])) {
+    // Detail link komunitas yang dimasukkan
+    $community_link = mysqli_real_escape_string($conn, $_POST['community_link']);
+    $product_name = mysqli_real_escape_string($conn, $_POST['product_name']);
+
+    // Validasi link komunitas
+    if (empty($community_link)) {
+        $errors[] = "Link komunitas harus diisi.";
+    } else {
+        // Masukkan link komunitas ke dalam database
+        $insertQuery = "UPDATE products SET link = '$community_link' WHERE name = '$product_name'";
+        $result = mysqli_query($conn, $insertQuery);
+        if ($result) {
+            $success_message = "Link komunitas berhasil ditambahkan untuk produk '$product_name'.";
+        } else {
+            $errors[] = "Gagal menambahkan link komunitas. Silakan coba lagi.";
         }
     }
 }
@@ -85,10 +94,10 @@ if (isset($_POST['add_video'])) {
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <title>Admin Materi</title>
 
-   <!-- font awesome cdn link  -->
+   <!-- Font Awesome CDN link  -->
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
-   <!-- custom admin css file link  -->
+   <!-- Custom admin CSS file link  -->
    <link rel="stylesheet" href="css/admin_style.css">
 
 </head>
@@ -97,9 +106,10 @@ if (isset($_POST['add_video'])) {
 <?php include 'admin_header.php'; ?>
 
 <section class="orders">
-    <h1 class="title">Tambahkan Materi</h1>
+    <h1 class="title">Tambahkan Materi dan Link Komunitas</h1>
 
     <div class="box-container">
+        <!-- Kotak untuk menambahkan materi -->
         <div class="box">
             <h1 class="title">Upload Materi</h1>
             <div class="container">
@@ -108,14 +118,21 @@ if (isset($_POST['add_video'])) {
                         <?php echo $error; ?>
                     </div>
                 <?php endforeach; ?>
+                <?php if ($success_message != "") : ?>
+                    <div class="success"><?php echo $success_message; ?></div>
+                <?php endif; ?>
                 <form action="" method="post" enctype="multipart/form-data">
                     <div class="form-group">
                         <label for="product_name">Pilih Produk :</label>
                         <select name="product_name" id="product_name" required>
                             <option value="" disabled selected>Pilih produk</option>
-                            <?php foreach ($productNames as $productName) : ?>
-                                <option value="<?php echo $productName; ?>"><?php echo $productName; ?></option>
-                            <?php endforeach; ?>
+                            <?php
+                            $query = "SELECT name FROM products";
+                            $result = mysqli_query($conn, $query);
+                            while ($row = mysqli_fetch_assoc($result)) {
+                                echo "<option value='" . $row['name'] . "'>" . $row['name'] . "</option>";
+                            }
+                            ?>
                         </select>
                     </div>
                     <div class="form-group">
@@ -124,6 +141,34 @@ if (isset($_POST['add_video'])) {
                     </div>
                     <div class="form-group">
                         <button type="submit" name="add_video" class="btn">Upload Video</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- Kotak untuk menambahkan link komunitas -->
+        <div class="box">
+            <h1 class="title">Tambahkan Link Komunitas</h1>
+            <div class="container">
+                <form action="" method="post">
+                    <div class="form-group">
+                        <label for="product_name">Pilih Produk :</label>
+                        <select name="product_name" id="product_name" required>
+                            <option value="" disabled selected>Pilih produk</option>
+                            <?php
+                            $query = "SELECT name FROM products";
+                            $result = mysqli_query($conn, $query);
+                            while ($row = mysqli_fetch_assoc($result)) {
+                                echo "<option value='" . $row['name'] . "'>" . $row['name'] . "</option>";
+                            }
+                            ?>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="community_link">Link Komunitas:</label>
+                        <input type="text" name="community_link" placeholder="Enter Community Link" required>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" name="add_community_link" class="btn">Tambah Link Komunitas</button>
                     </div>
                 </form>
             </div>

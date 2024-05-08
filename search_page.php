@@ -34,12 +34,12 @@ if (isset($_POST['add_to_cart'])) {
 <body>
 <?php include 'header.php'; ?>
 <div class="heading">
-   <h3>Search Page</h3>
+   <h3>Halaman Pencarian</h3>
    <p><a href="home.php">Home</a> / Search</p>
 </div>
 <section class="search-form">
    <form action="" method="post">
-      <input type="text" name="search" placeholder="Search products..." class="box">
+      <input type="text" name="search" placeholder="Search Kelas..." class="box">
       <input type="submit" name="submit" value="Search" class="btn">
    </form>
 </section>
@@ -48,27 +48,28 @@ if (isset($_POST['add_to_cart'])) {
    <?php
       if (isset($_POST['submit'])) {
          $search_item = $_POST['search'];
-         $select_products = mysqli_query($conn, "SELECT * FROM `products` WHERE name LIKE '%{$search_item}%'") or die('query failed');
+         // Periksa apakah produk sudah ada di keranjang atau sudah di-checkout
+         $select_products = mysqli_query($conn, "SELECT * FROM `products` WHERE name LIKE '%{$search_item}%' AND name NOT IN (SELECT name FROM cart WHERE user_id = '$user_id') AND name NOT IN (SELECT product_name FROM orders WHERE user_id = '$user_id')") or die('query failed');
          if (mysqli_num_rows($select_products) > 0) {
             while ($fetch_product = mysqli_fetch_assoc($select_products)) {
    ?>
    <form action="" method="post" class="box">
-      <img src="uploaded_img/<?php echo $fetch_product['image']; ?>" alt="" class="image">
-      <div class="name"><?php echo $fetch_product['name']; ?></div>
-      <div class="price">Rp<?php echo $fetch_product['price']; ?>.000<div>
-      <input type="hidden" name="product_name" value="<?php echo $fetch_product['name']; ?>">
-      <input type="hidden" name="product_price" value="<?php echo $fetch_product['price']; ?>">
-      <input type="hidden" name="product_image" value="<?php echo $fetch_product['image']; ?>">
-      <button type="submit" class="btn" name="add_to_cart">Add to Cart</button>
+    <img src="uploaded_img/<?php echo $fetch_product['image']; ?>" alt="" class="image">
+    <div class="name"><?php echo $fetch_product['name']; ?></div>
+    <div class="price">Rp<?php echo $fetch_product['price']; ?>.000</div>
+    <input type="hidden" name="product_name" value="<?php echo $fetch_product['name']; ?>">
+    <input type="hidden" name="product_price" value="<?php echo $fetch_product['price']; ?>">
+    <input type="hidden" name="product_image" value="<?php echo $fetch_product['image']; ?>">
+    <button type="submit" class="btn" name="add_to_cart">Add to Cart</button>
+</form>
 
-   </form>
    <?php
             }
          } else {
-            echo '<p class="empty">No result found!</p>';
+            echo '<p class="empty">Tidak ada kelas ditemukan!</p>';
          }
       } else {
-         echo '<p class="empty">Search something!</p>';
+         echo '<p class="empty">Cari nama kelas!</p>';
       }
    ?>
    </div>

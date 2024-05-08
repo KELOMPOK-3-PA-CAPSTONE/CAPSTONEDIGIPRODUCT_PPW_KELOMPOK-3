@@ -71,7 +71,7 @@ $wirainspirasi = "Wirainspirasi?";
             <i class="fas fa-star"></i>
             <i class="fas fa-star-half-alt"></i>
          </div>
-         <h3>Fathan</h3>
+         <h3>Fatim</h3>
       </div>
 
       <div class="box">
@@ -128,7 +128,7 @@ $wirainspirasi = "Wirainspirasi?";
 
       <div class="box">
          <img src="images/pic-16.png" alt="">
-         <p>Wirainspirasi memberikan wawasan bisnis yang mendalam pendekatan praktis dan materi yang relevan membuat saya lebih siap untuk tantangan di pasar kerja.</p>
+         <p>Wirainspirasi memberikan wawasan bisnis yang mendalam pendekatan praktis dan materi yang relevan membuat saya lebih siap dan yakin untuk tantangan di pasar kerja.</p>
          <div class="stars">
             <i class="fas fa-star"></i>
             <i class="fas fa-star"></i>

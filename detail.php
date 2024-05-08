@@ -10,7 +10,6 @@ if (!isset($user_id)) {
     exit;
 }
 
-// Pastikan parameter product_id telah diterima melalui URL
 if (isset($_GET['product_id'])) {
     $product_id = $_GET['product_id'];
 
@@ -148,7 +147,7 @@ if (isset($_POST['add_to_cart'])) {
             <input type="hidden" name="product_name" value="<?php echo $row['name']; ?>">
             <input type="hidden" name="product_price" value="<?php echo $row['price']; ?>">
             <input type="hidden" name="product_image" value="<?php echo $row['image']; ?>">
-            <input type="submit" value="Daftar sekarang!" name="add_to_cart" class="btn">
+            <input type="submit" value="Add to Cart" name="add_to_cart" class="btn">
          </form>
       </div>
    </div>

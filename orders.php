@@ -128,6 +128,7 @@ if (!isset($_SESSION['user_id'])) {
                   if (mysqli_num_rows($product_query) > 0) {
                      $product_row = mysqli_fetch_assoc($product_query);
                      $video_url = $product_row['lesson_video'];
+                     $community_link = $product_row['link']; // Menambahkan link komunitas
                   }
                }
          ?>
@@ -139,6 +140,10 @@ if (!isset($_SESSION['user_id'])) {
                   <?php if ($video_url) : ?>
                      <!-- Tombol "Tonton Video" -->
                      <button class="watch-video-btn" <?php echo $payment_status == 'pending' ? 'disabled' : ''; ?> data-video-url="<?php echo $video_url; ?>">Tonton Video</button>
+                  <?php endif; ?>
+                  <!-- Tombol "Link Komunitas" -->
+                  <?php if ($community_link) : ?>
+                     <a href="<?php echo $community_link; ?>" class="watch-video-btn" target="_blank">Link Komunitas</a>
                   <?php endif; ?>
                </div>
          <?php

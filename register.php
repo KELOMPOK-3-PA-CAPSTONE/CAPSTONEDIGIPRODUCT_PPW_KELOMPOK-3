@@ -6,21 +6,30 @@ if(isset($_POST['submit'])){
 
    $name = mysqli_real_escape_string($conn, $_POST['name']);
    $email = mysqli_real_escape_string($conn, $_POST['email']);
-   $pass = mysqli_real_escape_string($conn, md5($_POST['password']));
-   $cpass = mysqli_real_escape_string($conn, md5($_POST['cpassword']));
+   $password = mysqli_real_escape_string($conn, $_POST['password']);
+   $cpassword = mysqli_real_escape_string($conn, $_POST['cpassword']);
    $user_type = $_POST['user_type'];
 
-   $select_users = mysqli_query($conn, "SELECT * FROM `users` WHERE email = '$email' AND password = '$pass'") or die('query failed');
+   // Pastikan panjang password adalah 10 karakter
+   if(strlen($password) !== 10){
+      $message[] = 'Password must be exactly 10 characters long!';
+   } else {
 
-   if(mysqli_num_rows($select_users) > 0){
-      $message[] = 'user already exist!';
-   }else{
-      if($pass != $cpass){
-         $message[] = 'confirm password not matched!';
+      // Hash password
+      $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+
+      $select_users = mysqli_query($conn, "SELECT * FROM `users` WHERE email = '$email'") or die('query failed');
+
+      if(mysqli_num_rows($select_users) > 0){
+         $message[] = 'User already exists!';
       }else{
-         mysqli_query($conn, "INSERT INTO `users`(name, email, password, user_type) VALUES('$name', '$email', '$cpass', '$user_type')") or die('query failed');
-         $message[] = 'registered successfully!';
-         header('location:login.php');
+         if($password != $cpassword){
+            $message[] = 'Confirm password does not match!';
+         }else{
+            mysqli_query($conn, "INSERT INTO `users`(name, email, password, user_type) VALUES('$name', '$email', '$hashed_password', '$user_type')") or die('query failed');
+            $message[] = 'Registered successfully!';
+            header('location:login.php');
+         }
       }
    }
 
@@ -34,18 +43,16 @@ if(isset($_POST['submit'])){
    <meta charset="UTF-8">
    <meta http-equiv="X-UA-Compatible" content="IE=edge">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>register</title>
+   <title>Register</title>
 
-   <!-- font awesome cdn link  -->
+   <!-- Font Awesome CDN link  -->
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
-   <!-- custom css file link  -->
+   <!-- Custom CSS file link  -->
    <link rel="stylesheet" href="css/style.css">
 
 </head>
 <body>
-
-
 
 <?php
 if(isset($message)){
@@ -59,17 +66,17 @@ if(isset($message)){
    }
 }
 ?>
-   
-   <div class="form-container">
+
+<div class="form-container">
    <form action="" method="post">
-      <h3>register now</h3>
-      <input type="text" name="name" placeholder="enter your name" required pattern="[A-Za-z\s]+" title="Nama tidak valid!" class="box">
-      <input type="email" name="email" placeholder="enter your email" required class="box">
-      <input type="password" name="password" placeholder="enter your password" required class="box">
-      <input type="password" name="cpassword" placeholder="confirm your password" required class="box">
+      <h3>Register Now</h3>
+      <input type="text" name="name" placeholder="Enter your name" required pattern="[A-Za-z\s]+" title="Invalid name!" class="box">
+      <input type="email" name="email" placeholder="Enter your email" required class="box">
+      <input type="password" name="password" placeholder="Enter your password (10 characters)" required class="box" minlength="10" maxlength="10">
+      <input type="password" name="cpassword" placeholder="Confirm your password" required class="box">
       <input type="hidden" name="user_type" value="user"> 
-      <input type="submit" name="submit" value="register now" class="btn">
-      <p>already have an account? <a href="login.php">login now</a></p>
+      <input type="submit" name="submit" value="Register Now" class="btn">
+      <p>Already have an account? <a href="login.php">Login Now</a></p>
    </form>
 </div>
 

@@ -11,38 +11,38 @@ if (!isset($user_id)) {
     exit; // Keluar dari skrip jika pengguna tidak login
 }
 
+$message = array(); // Inisialisasi pesan
+
 if (isset($_POST['order_btn'])) {
-   // Ambil data dari form
-   $method = mysqli_real_escape_string($conn, $_POST['method']);
-   $city = mysqli_real_escape_string($conn, $_POST['city']);
-   $address = mysqli_real_escape_string($conn, $_POST['address']);
-   $placed_on = date('d-M-Y');
+    // Ambil data dari form
+    $method = mysqli_real_escape_string($conn, $_POST['method']);
+    $city = mysqli_real_escape_string($conn, $_POST['city']);
+    $address = mysqli_real_escape_string($conn, $_POST['address']);
+    $placed_on = date('d-M-Y');
 
-   // Ambil semua produk dari keranjang
-   $cart_total = 0;
-   $cart_products = [];
-   $cart_query = mysqli_query($conn, "SELECT * FROM `cart` WHERE user_id = '$user_id'") or die('query failed');
-   if (mysqli_num_rows($cart_query) > 0) {
-       while ($cart_item = mysqli_fetch_assoc($cart_query)) {
-           $cart_products[] = $cart_item['name'] . ' (' . $cart_item['quantity'] . ') ';
-           $sub_total = ($cart_item['price'] * $cart_item['quantity']);
-           $cart_total += $sub_total;
-       }
-   }
+    // Ambil semua produk dari keranjang
+    $cart_total = 0;
+    $cart_query = mysqli_query($conn, "SELECT * FROM `cart` WHERE user_id = '$user_id'") or die('query failed');
+    if (mysqli_num_rows($cart_query) > 0) {
+        while ($cart_item = mysqli_fetch_assoc($cart_query)) {
+            $product_name = $cart_item['name'];
+            $product_quantity = $cart_item['quantity'];
+            $product_price = $cart_item['price'];
+            $sub_total = $product_price * $product_quantity;
+            $cart_total += $sub_total;
 
-   // Gabungkan semua nama produk menjadi satu string
-   $total_products = implode(', ', $cart_products);
+            // Simpan setiap produk sebagai pesanan terpisah
+            $order_query = mysqli_query($conn, "INSERT INTO `orders` (user_id, product_name, method, city, address, total_price, placed_on) VALUES ('$user_id', '$product_name', '$method', '$city', '$address', '$sub_total', '$placed_on')") or die('query failed');
+        }
+    }
 
-   // Simpan pesanan ke dalam tabel `orders`
-   $order_query = mysqli_query($conn, "INSERT INTO `orders` (user_id, product_name, method, city, address, total_price, placed_on) VALUES ('$user_id', '$total_products', '$method', '$city', '$address', '$cart_total', '$placed_on')") or die('query failed');
-
-   // Hapus semua item dari keranjang setelah pesanan berhasil disimpan
-   if ($order_query) {
-       mysqli_query($conn, "DELETE FROM `cart` WHERE user_id = '$user_id'") or die('query failed');
-       $message[] = 'Order placed successfully!';
-   } else {
-       $message[] = 'Failed to place order!';
-   }
+    // Hapus semua item dari keranjang setelah pesanan berhasil disimpan
+    if ($order_query) {
+        mysqli_query($conn, "DELETE FROM `cart` WHERE user_id = '$user_id'") or die('query failed');
+        $message[] = 'Order placed successfully!';
+    } else {
+        $message[] = 'Failed to place order!';
+    }
 }
 
 ?>
@@ -86,6 +86,7 @@ if (isset($_POST['order_btn'])) {
         <?php
             }
         } else {
+            // Tampilkan pesan ketika keranjang kosong
             echo '<p class="empty">Your cart is empty</p>';
         }
         ?>
@@ -94,10 +95,8 @@ if (isset($_POST['order_btn'])) {
 
     <section class="checkout">
         <?php 
-        // Tampilkan pesan jika keranjang kosong
-        if (mysqli_num_rows($select_cart) == 0) {
-            echo "<h2>Anda belum memilih kelas dan tidak bisa memesan.</h2>";
-        } else {
+        // Tampilkan formulir pesanan hanya jika keranjang tidak kosong
+        if (mysqli_num_rows($select_cart) > 0) {
         ?>
         <form action="" method="post">
             <h3>Lengkapi data pemesanan</h3>

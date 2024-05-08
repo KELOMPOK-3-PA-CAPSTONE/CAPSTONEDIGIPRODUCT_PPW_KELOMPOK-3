@@ -71,7 +71,7 @@ if (isset($_GET['delete'])) {
 
 <section class="orders">
 
-   <h1 class="title">Placed Orders</h1>
+   <h1 class="title">Pemesanan Kelas</h1>
 
    <div class="box-container">
       <?php
@@ -82,10 +82,10 @@ if (isset($_GET['delete'])) {
       ?>
       <div class="box">
          <p>User ID: <span><?php echo $fetch_orders['user_id']; ?></span></p>
-         <p>Placed on: <span><?php echo $fetch_orders['placed_on']; ?></span></p>
-         <p>Address: <span><?php echo $fetch_orders['address']; ?></span></p>
-         <p>Total Price: <span>Rp.<?php echo $fetch_orders['total_price']; ?>.000</span></p>
-         <p>Payment Method: <span><?php echo $fetch_orders['method']; ?></span></p>
+         <p>TGL Pemesanan: <span><?php echo $fetch_orders['placed_on']; ?></span></p>
+         <p>Alamat: <span><?php echo $fetch_orders['address']; ?></span></p>
+         <p>Total Harga: <span>Rp.<?php echo $fetch_orders['total_price']; ?>.000</span></p>
+         <p>Metode pembayaran : <span><?php echo $fetch_orders['method']; ?></span></p>
          <form action="" method="post">
             <input type="hidden" name="order_id" value="<?php echo $fetch_orders['order_id']; ?>">
             <select name="update_payment">

@@ -357,16 +357,28 @@ section{
 
 .header .header-2 .flex .user-box .delete-btn{
    margin-top: 0;
-}
-
-.home{
-   min-height: 70vh;
-   background:linear-gradient(rgba(0,0,0,.7), rgba(0,0,0,.7)), url(../images/homebg.webp) no-repeat;
-   background-size: cover;
-   background-position: center;
-   display: flex;
-   align-items: center;
-   justify-content: center;
+   .home {
+      min-height: 70vh;
+      background: linear-gradient(rgba(0,0,0,.7), rgba(0,0,0,.7)), url(../images/homebg1.webp) no-repeat;
+      background-size: cover;
+      background-position: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      animation: slideshow 10s infinite alternate;
+  }
+  
+  @keyframes slideshow {
+      0% {
+          background-image: url(../images/home.jpeg);
+      }
+      50% {
+          background-image: url(../images/homebg2.webp);
+      }
+      100% {
+          background-image: url(../images/homebg1.webp);
+      }
+  }
 }
 
 .home .content{
