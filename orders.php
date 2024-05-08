@@ -64,7 +64,7 @@ if (!isset($_SESSION['user_id'])) {
 
       /* CSS for button */
       .watch-video-btn {
-         background-color: #4CAF50; /* Green */
+         background-color: var(--purple);
          border: none;
          color: white;
          padding: 10px 20px;
@@ -80,7 +80,7 @@ if (!isset($_SESSION['user_id'])) {
       }
 
       .watch-video-btn:hover {
-         background-color: #45a049; /* Darker Green */
+         background-color: var(--orange);
       }
 
       .watch-video-btn[disabled] {
@@ -94,7 +94,7 @@ if (!isset($_SESSION['user_id'])) {
 
    <div class="heading">
       <h3>Your Orders</h3>
-      <p><a href="home.php">Home</a> / Orders</p>
+      <p><a href="home.php">Beranda</a> / Pesanan</p>
    </div>
 
    <!-- Video pop-up -->
@@ -149,7 +149,7 @@ if (!isset($_SESSION['user_id'])) {
          <?php
             }
          } else {
-            echo '<p class="empty">No orders placed yet!</p>';
+            echo '<p class="empty">Kamu belum ada melakukan pemesanan!</p>';
          }
          ?>
       </div>
