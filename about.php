@@ -27,8 +27,8 @@ session_start();
 <?php include 'header.php'; ?>
 
 <div class="heading">
-   <h3>about us</h3>
-   <p> <a href="home.php">home</a> / about </p>
+   <h3>Tentang kami</h3>
+   <p> <a href="home.php">Beranda</a> / Tentang kami </p>
 </div>
 
 
