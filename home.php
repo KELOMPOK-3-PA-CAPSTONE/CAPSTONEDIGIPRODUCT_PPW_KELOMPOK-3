@@ -155,7 +155,7 @@ if (isset($_POST['add_to_cart'])) {
             </div>
 
             <div class="content">
-                <h3>about us</h3>
+                <h3>Tentang kami</h3>
                 <p>Wirainsipirasi adalah platform terbuka bagi pemuda Indonesia untuk mengembangkan keterampilan wirausaha melalui kelas berbayar yang dirancang oleh para ahli.</p>
                 <a href="about.php" class="btn">Baca selengkapnya</a>
             </div>
