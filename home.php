@@ -66,7 +66,7 @@ if (isset($_POST['add_to_cart'])) {
 
     </section>
 
-    <section class="insight">
+     <section class="insight">
     <h1 class="title">Insight</h1>
         <div class="container">
             <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
@@ -75,11 +75,10 @@ if (isset($_POST['add_to_cart'])) {
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="card" style="width: 100%;">
-                                    <img class="card-img-top" src="images/1.png" alt="Image cap">
+                                    <img class="card-img-top" src="images/5.png" alt="Image cap">
                                     <div class="card-body">
-                                        <h5 class="card-title">Insight 1</h5>
-                                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                    </div>
+                                        <h5 class="card-title">Temukan keberanian dalam bisnis Anda di Wirainspirasi! Les wirausaha kami membantu Anda melangkah tanpa takut. Bergabunglah sekarang dan mulailah petualangan bisnis Anda!"</h5>
+                                         </div>
                                 </div>
                             </div>
                         </div>
@@ -88,11 +87,34 @@ if (isset($_POST['add_to_cart'])) {
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="card" style="width: 100%;">
-                                    <img class="card-img-top" src="images/insight.png" alt="Image cap">
+                                    <img class="card-img-top" src="images/4.png" alt="Image cap">
                                     <div class="card-body">
-                                        <h5 class="card-title">Insight 2</h5>
-                                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                    </div>
+                                        <h5 class="card-title">Tingkatkan minat pemuda dalam dunia barista dengan kelas-kelas kami di Wirainspirasi! Mulailah perjalanan Anda dalam seni kopi dengan instruktur terbaik kami. Temukan bakat Anda dan ciptakan masa depan yang cerah dalam industri kopi bersama kami</h5>
+                                   </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="card" style="width: 100%;">
+                                    <img class="card-img-top" src="images/2.png" alt="Image cap">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Jelajahi dunia investasi saham dengan kami di Wirainspirasi! Dengan panduan dari para ahli, Anda dapat memahami strategi investasi yang tepat dan mengoptimalkan portofolio Anda. Segera bergabunglah dengan kelas-kelas kami dan raih kesuksesan finansial Anda di pasar saham!</h5>
+                                   </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="card" style="width: 100%;">
+                                    <img class="card-img-top" src="images/3.png" alt="Image cap">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Dengan Wirainspirasi, kita bisa membuka pintu bagi anak cucu kita menuju kehidupan yang lebih baik. Berani menciptakan peluang dan belajarlah untuk meraih impian mereka</h5>
+                                   </div>
                                 </div>
                             </div>
                         </div>
@@ -109,6 +131,7 @@ if (isset($_POST['add_to_cart'])) {
             </div>
         </div>
     </section>
+
 
 
     <section class="products">
