@@ -127,17 +127,17 @@ section{
 .btn:hover,
 .option-btn:hover,
 .delete-btn:hover{
-   background-color: var(--purple);
+   background-color: var(--orange);
    color: white;
 }
 
 .white-btn,
 .btn{
-   background-color: var(--orange);
+   background-color: var(--purple);
 }
 
 .option-btn{
-   background-color: var(--orange);
+   background-color: var(--purple);
 }
 
 .delete-btn{
@@ -145,7 +145,7 @@ section{
 }
 
 .white-btn:hover{
-   background-color: var(--purple);
+   background-color: var(--orange);
    color:var(--white);
 }
 
@@ -239,9 +239,15 @@ section{
    text-decoration: underline;
 }
 
-.header .header-1{
-   background-color: var(--light-bg);
+.header .header-1 {
+   background-color:var(--purple);
 }
+
+.header .header-2 {
+   background-color:var(--purple);
+   box-shadow: var(--box-shadow);
+}
+
 
 .header .header-1 .flex{
    padding:2rem;
@@ -252,15 +258,13 @@ section{
    margin:0 auto;
 }
 
-.header .header-2{
-   background-color: var(--light-bg);
-   box-shadow: var(--box-shadow);
-}
+
 
 .header .header-2.active{
    position: fixed;
    top:0; left:0; right:0;
    z-index: 1000;
+   
 }
 
 .header .header-2 .flex{
@@ -276,11 +280,11 @@ section{
 .header .header-1 .flex .share a{
    font-size: 2.5rem;
    margin-right: 1.5rem;
-   color:var(--black);
+   color:var(--white);
 }
 
 .header .header-1 .flex .share a:hover{
-   color:var(--purple);
+   color:var(--black);
 }
 
 .header .header-1 .flex p{
@@ -292,35 +296,35 @@ section{
    color:var(--purple);
 }
 
-.header .header-1 .flex p a:hover{
+/* .header .header-1 .flex p a:hover{
    text-decoration: underline;
-}
+} */
 
 .header .header-2 .flex .logo{
    font-size: 2.5rem;
-   color:var(--purple);
+   color:var(--white);
 }
 
 .header .header-2 .flex .navbar a{
    margin:0 1rem;
    font-size: 2rem;
-   color:var(--light-color);
+   color:var(--white);
 }
 
-.header .header-2 .flex .navbar a:hover{
-   color:var(--purple);
-   text-decoration: underline;
-}
+/* .header .header-2 .flex .navbar a:hover{
+   color:var(--white);
+   text-decoration: underline; */
+/* } */
 
 .header .header-2 .flex .icons > *{
    font-size: 2.5rem;
-   color:var(--black);
+   color:var(--white);
    cursor: pointer;
    margin-left: 1.5rem;
 }
 
 .header .header-2 .flex .icons > *:hover{
-   color:var(--purple);
+   color:var(--black);
 }
 
 #menu-btn{
