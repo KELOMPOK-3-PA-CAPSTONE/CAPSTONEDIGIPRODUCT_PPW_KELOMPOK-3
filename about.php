@@ -143,7 +143,7 @@ $wirainspirasi = "Wirainspirasi?";
    </section>
    <section class="authors">
 
-<h1 class="title">Great Mentor</h1>
+<h1 class="title">Mentor yang berpengalaman</h1>
 
 <div class="box-container">
 
