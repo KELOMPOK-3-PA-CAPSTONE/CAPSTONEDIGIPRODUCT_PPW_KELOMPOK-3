@@ -1,59 +1,36 @@
 <?php
-include 'config.php';
 session_start();
+
+include 'config.php';
+
+$message = ""; // Inisialisasi variabel pesan kesalahan
 
 if(isset($_POST['submit'])){
 
    $email = mysqli_real_escape_string($conn, $_POST['email']);
-   $pass = mysqli_real_escape_string($conn, md5($_POST['password']));
+   $password = mysqli_real_escape_string($conn, $_POST['password']);
 
-   $select_users = mysqli_query($conn, "SELECT * FROM `users` WHERE email = '$email' AND password = '$pass'") or die('query failed');
+   $select_user = mysqli_query($conn, "SELECT * FROM `users` WHERE email = '$email'") or die('query failed');
 
-   if(mysqli_num_rows($select_users) > 0){
-
-      $row = mysqli_fetch_assoc($select_users);
-
-      if($row['user_type'] == 'admin'){
-
-         $_SESSION['admin_name'] = $row['name'];
-         $_SESSION['admin_email'] = $row['email'];
-         $_SESSION['admin_id'] = $row['id'];
-
-         // Set cookie if "Remember Me" is checked
-         if(isset($_POST['remember'])) {
-            setcookie('user_email', $row['email'], time() + (86400 * 30), "/"); // 30 days
-         }
-
-         header('location:admin_page.php');
-
-      }elseif($row['user_type'] == 'user'){
-
+   if(mysqli_num_rows($select_user) > 0){
+      $row = mysqli_fetch_assoc($select_user);
+      $hashed_password = $row['password']; // Ambil hash kata sandi yang tersimpan di database
+      // Verifikasi kata sandi yang dimasukkan oleh pengguna dengan hash yang tersimpan di database
+      if(password_verify($password, $hashed_password)){
+         // Jika verifikasi berhasil, atur sesi pengguna dan arahkan ke halaman yang sesuai
          $_SESSION['user_name'] = $row['name'];
          $_SESSION['user_email'] = $row['email'];
          $_SESSION['user_id'] = $row['id'];
-
-         // Set cookie if "Remember Me" is checked
-         if(isset($_POST['remember'])) {
-            setcookie('user_email', $row['email'], time() + (86400 * 30), "/"); // 30 days
-         }
-
          header('location:home.php');
-
+         exit; // Pastikan keluar dari skrip setelah mengarahkan pengguna ke halaman home
+      } else {
+         $message = 'Incorrect email or password!';
       }
-
-   }else{
-      $message[] = 'Incorrect email or password!';
+   } else {
+      $message = 'Incorrect email or password!';
    }
 
 }
-
-// Check if user_email cookie is set, then automatically fill the email field
-if(isset($_COOKIE['user_email'])) {
-   $remembered_email = $_COOKIE['user_email'];
-} else {
-   $remembered_email = '';
-}
-
 ?>
 
 <!DOCTYPE html>
@@ -86,7 +63,7 @@ if(isset($_COOKIE['user_email'])) {
    <div class="form-container">
       <form action="" method="post">
          <h3>Login Now</h3>
-         <input type="email" name="email" placeholder="Enter your email" required class="box" value="<?php echo $remembered_email; ?>">
+         <input type="email" name="email" placeholder="Enter your email" required class="box" value="<?php echo isset($_POST['email']) ? $_POST['email'] : ''; ?>">
          <input type="password" name="password" placeholder="Enter your password" required class="box">
          <div class="remember-me">
             <input type="checkbox" id="remember" name="remember">
@@ -96,5 +73,11 @@ if(isset($_COOKIE['user_email'])) {
          <p>Don't have an account? <a href="register.php">Register Now</a></p>
       </form>
    </div>
+
+   <?php if (!empty($message)): ?>
+      <script>
+         alert("<?php echo $message; ?>");
+      </script>
+   <?php endif; ?>
 </body>
 </html>
