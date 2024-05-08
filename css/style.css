@@ -127,12 +127,13 @@ section{
 .btn:hover,
 .option-btn:hover,
 .delete-btn:hover{
-   background-color: var(--black);
+   background-color: var(--purple);
+   color: white;
 }
 
 .white-btn,
 .btn{
-   background-color: var(--purple);
+   background-color: var(--orange);
 }
 
 .option-btn{
@@ -144,8 +145,8 @@ section{
 }
 
 .white-btn:hover{
-   background-color: var(--white);
-   color:var(--black);
+   background-color: var(--purple);
+   color:var(--white);
 }
 
 .heading{
