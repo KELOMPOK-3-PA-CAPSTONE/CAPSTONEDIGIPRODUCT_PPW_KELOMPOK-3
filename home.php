@@ -190,7 +190,7 @@ if (isset($_POST['add_to_cart'])) {
     <section class="home-contact">
 
         <div class="content">
-            <h3>Ada pertanyaan>?</h3>
+            <h3>Ada pertanyaan?</h3>
             <p>Jika Anda memiliki pertanyaan tentang materi kursus atau membutuhkan bantuan tambahan. Kami akan dengan senang hati membantu Anda!</p>
             <a href="contact.php" class="white-btn">hubungi kami</a>
         </div>
