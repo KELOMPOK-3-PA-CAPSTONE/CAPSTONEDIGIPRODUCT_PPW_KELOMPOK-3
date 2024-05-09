@@ -3,6 +3,7 @@ include 'config.php';
 
 session_start();
 
+// Periksa apakah pengguna sudah login dan memiliki peran admin
 $admin_id = isset($_SESSION['admin_id']) ? $_SESSION['admin_id'] : null;
 $admin_role = isset($_SESSION['admin_role']) ? $_SESSION['admin_role'] : null;
 
@@ -11,6 +12,7 @@ if (!$admin_id || $admin_role !== 'admin') {
     header('location:login.php');
     exit;
 }
+
 
 $admin_id = $_SESSION['admin_id'];
 
