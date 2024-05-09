@@ -105,10 +105,10 @@ if (isset($_POST['order_btn'])) {
                 <div class="inputBox">
                     <span>Metode pembayaran :</span>
                     <select name="method">
-                        <option value="dana">Dana</option>
-                        <option value="Ovo">Ovo</option>
+                        <option value="linkaja">LinkAja</option>
+                        <option value="Shoppeepay">Shoppeepay</option>
                         <option value="Gopay">Gopay</option>
-                        <option value="Mbangking">Mbangking</option>
+                        <option value="Mbangking">Mbanking</option>
                     </select>
                 </div>
                 <div class="inputBox">
