@@ -105,9 +105,9 @@ if (isset($_POST['order_btn'])) {
                 <div class="inputBox">
                     <span>Metode pembayaran :</span>
                     <select name="method">
-                        <option value="Ewallet">E-wallet</option>
-                        <option value="credit card">Credit Card</option>
-                        <option value="paypal">PayPal</option>
+                        <option value="dana">Dana</option>
+                        <option value="Ovo">Ovo</option>
+                        <option value="Gopay">Gopay</option>
                         <option value="Mbangking">Mbangking</option>
                     </select>
                 </div>

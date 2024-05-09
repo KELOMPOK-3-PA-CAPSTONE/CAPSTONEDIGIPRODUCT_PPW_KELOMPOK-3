@@ -75,12 +75,14 @@ if (isset($_GET['delete'])) {
 
    <div class="box-container">
       <?php
-      // Ambil semua pesanan dari database
-      $select_orders = mysqli_query($conn, "SELECT * FROM `orders`") or die('Query failed');
+      // Ambil semua pesanan dari database, berurutan, yang paling lama dipaling bawah berdasarkan order palced
+      $select_orders = mysqli_query($conn, "SELECT * FROM `orders` ORDER BY placed_on DESC") or die('Query failed');
+
       if (mysqli_num_rows($select_orders) > 0) {
          while ($fetch_orders = mysqli_fetch_assoc($select_orders)) {
       ?>
       <div class="box">
+         <p>Nama kelas: <span><?php echo $fetch_orders['product_name']; ?></span></p>
          <p>User ID: <span><?php echo $fetch_orders['user_id']; ?></span></p>
          <p>TGL Pemesanan: <span><?php echo $fetch_orders['placed_on']; ?></span></p>
          <p>Alamat: <span><?php echo $fetch_orders['address']; ?></span></p>

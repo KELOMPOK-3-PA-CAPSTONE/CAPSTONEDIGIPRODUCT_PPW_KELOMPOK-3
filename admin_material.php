@@ -15,8 +15,8 @@ if (!isset($_SESSION['admin_id'])) {
 $errors = [];
 $success_message = "";
 
-// Periksa apakah tombol submit untuk menambahkan materi ditekan
-if (isset($_POST['add_video'])) {
+// Periksa apakah tombol submit untuk menambahkan materi atau link komunitas ditekan
+if (isset($_POST['add_material'])) {
     // Detail materi yang dimasukkan
     $product_name = mysqli_real_escape_string($conn, $_POST['product_name']);
 
@@ -25,6 +25,9 @@ if (isset($_POST['add_video'])) {
     $video_tmp = $_FILES['video']['tmp_name'];
     $video_size = $_FILES['video']['size'];
     $video_type = $_FILES['video']['type'];
+
+    // Detail link komunitas yang dimasukkan
+    $community_link = mysqli_real_escape_string($conn, $_POST['community_link']);
 
     // Lokasi folder untuk menyimpan video yang diunggah
     $target_directory = "uploaded_videos/";
@@ -50,41 +53,37 @@ if (isset($_POST['add_video'])) {
             // Pindahkan file ke folder yang ditentukan
             if (move_uploaded_file($video_tmp, $target_file)) {
                 // Query untuk menyimpan nama file video ke kolom lesson_video di tabel products
-                $query = "UPDATE `products` SET `lesson_video` = '$video_file' WHERE `name` = '$product_name'";
+                $query = "UPDATE `products` SET `lesson_video` = '$video_file', `link` = '$community_link' WHERE `name` = '$product_name'";
                 $result = mysqli_query($conn, $query);
                 if ($result) {
-                    $success_message = "Video berhasil diunggah untuk produk '$product_name'.";
+                    $success_message = "Materi dan link berhasil diunggah untuk produk '$product_name'.";
                 } else {
-                    $errors[] = "Gagal mengunggah video. Silakan coba lagi.";
+                    $errors[] = "Gagal mengunggah materi. Silakan coba lagi.";
                 }
             } else {
-                $errors[] = "Terjadi kesalahan saat mengunggah video.";
+                $errors[] = "Terjadi kesalahan saat mengunggah materi.";
             }
         }
     }
 }
 
-// Periksa apakah tombol submit untuk menambahkan link komunitas ditekan
-if (isset($_POST['add_community_link'])) {
-    // Detail link komunitas yang dimasukkan
-    $community_link = mysqli_real_escape_string($conn, $_POST['community_link']);
-    $product_name = mysqli_real_escape_string($conn, $_POST['product_name']);
+// Inisialisasi variabel $message untuk menghindari pesan "Undefined variable $message"
+$message = [];
 
-    // Validasi link komunitas
-    if (empty($community_link)) {
-        $errors[] = "Link komunitas harus diisi.";
-    } else {
-        // Masukkan link komunitas ke dalam database
-        $insertQuery = "UPDATE products SET link = '$community_link' WHERE name = '$product_name'";
-        $result = mysqli_query($conn, $insertQuery);
-        if ($result) {
-            $success_message = "Link komunitas berhasil ditambahkan untuk produk '$product_name'.";
-        } else {
-            $errors[] = "Gagal menambahkan link komunitas. Silakan coba lagi.";
-        }
-    }
+// Jika ada pesan sukses, tambahkan ke array $message
+if (!empty($success_message)) {
+    $message[] = $success_message;
 }
+
+// Jika ada pesan kesalahan, tambahkan ke array $message
+if (!empty($errors)) {
+    $message[] = implode("<br>", $errors);
+}
+
+// Menyimpan array $message ke session untuk ditampilkan di halaman berikutnya
+$_SESSION['message'] = $message;
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -109,18 +108,20 @@ if (isset($_POST['add_community_link'])) {
     <h1 class="title">Tambahkan Materi dan Link Komunitas</h1>
 
     <div class="box-container">
-        <!-- Kotak untuk menambahkan materi -->
+        <!-- Kotak untuk menambahkan materi dan link komunitas -->
         <div class="box">
-            <h1 class="title">Upload Materi</h1>
+            <h1 class="title">Tambahkan Materi dan Link Komunitas</h1>
             <div class="container">
-                <?php foreach ($errors as $error) : ?>
-                    <div class="error">
-                        <?php echo $error; ?>
-                    </div>
-                <?php endforeach; ?>
-                <?php if ($success_message != "") : ?>
-                    <div class="success"><?php echo $success_message; ?></div>
-                <?php endif; ?>
+                <?php
+                // Tampilkan pesan
+                if (isset($_SESSION['message'])) {
+                    foreach ($_SESSION['message'] as $msg) {
+                        echo "<p>$msg</p>";
+                    }
+                    // Hapus pesan setelah ditampilkan
+                    unset($_SESSION['message']);
+                }
+                ?>
                 <form action="" method="post" enctype="multipart/form-data">
                     <div class="form-group">
                         <label for="product_name">Pilih Produk :</label>
@@ -136,39 +137,16 @@ if (isset($_POST['add_community_link'])) {
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="video">Choose Video:</label>
+                                <label for="community_link">Link Komunitas:</label>
+                                <input type="url" name="community_link" placeholder="masukan komunitas Link" required>
+                            </div>
+
+                    <div class="form-group">
+                        <label for="video">Pilih Video:</label>
                         <input type="file" name="video" required>
                     </div>
                     <div class="form-group">
-                        <button type="submit" name="add_video" class="btn">Upload Video</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-        <!-- Kotak untuk menambahkan link komunitas -->
-        <div class="box">
-            <h1 class="title">Tambahkan Link Komunitas</h1>
-            <div class="container">
-                <form action="" method="post">
-                    <div class="form-group">
-                        <label for="product_name">Pilih Produk :</label>
-                        <select name="product_name" id="product_name" required>
-                            <option value="" disabled selected>Pilih produk</option>
-                            <?php
-                            $query = "SELECT name FROM products";
-                            $result = mysqli_query($conn, $query);
-                            while ($row = mysqli_fetch_assoc($result)) {
-                                echo "<option value='" . $row['name'] . "'>" . $row['name'] . "</option>";
-                            }
-                            ?>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="community_link">Link Komunitas:</label>
-                        <input type="text" name="community_link" placeholder="Enter Community Link" required>
-                    </div>
-                    <div class="form-group">
-                        <button type="submit" name="add_community_link" class="btn">Tambah Link Komunitas</button>
+                        <button type="submit" name="add_material" class="btn">Tambah Materi dan Link Komunitas</button>
                     </div>
                 </form>
             </div>

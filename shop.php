@@ -53,12 +53,12 @@ if (isset($_POST['add_to_cart'])) {
 
     <div class="heading">
         <h3>Kelas Wirainsipirasi</h3>
-        <p> <a href="home.php">home</a> / Kelas </p>
+        <p> <a href="home.php">Beranda</a> / Kelas </p>
     </div>
 
     <section class="products">
 
-        <h1 class="title">Kelas Yang Teredia</h1>
+        <h1 class="title">Kelas Yang Tersedia</h1>
 
         <div class="box-container">
 
@@ -81,7 +81,7 @@ if (isset($_POST['add_to_cart'])) {
             <?php
                 }
             } else {
-                echo '<p class="empty">No products available!</p>';
+                echo '<p class="empty">Tidak ada kelas yang tersedia</p>';
             }
             ?>
         </div>

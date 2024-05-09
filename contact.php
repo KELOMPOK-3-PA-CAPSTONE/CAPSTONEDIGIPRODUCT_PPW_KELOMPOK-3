@@ -44,6 +44,30 @@ if(isset($_POST['send'])){
    <!-- custom css file link  -->
    <link rel="stylesheet" href="css/style.css">
 
+   <style>
+      /* bg form */
+      .contact form {
+      background-color: var(--purple); 
+
+      }
+
+    .submit-btn {
+        background-color: var(--orange);
+
+        padding: 10px 20px; /* Padding untuk menentukan ukuran tombol */
+        border: none; /* Menghapus border */
+        border-radius: 5px; /* Membuat sudut tombol menjadi melengkung */
+        cursor: pointer; /* Mengubah kursor menjadi tanda arah saat diarahkan ke tombol */
+        transition: background-color 0.3s ease; /* Transisi smooth ketika dihover */
+    }
+
+    .submit-btn:hover {
+        background-color: var(--white); /* Warna latar belakang saat dihover */
+        color: black;
+    }
+
+   </style>
+
 </head>
 <body>
    
@@ -51,18 +75,20 @@ if(isset($_POST['send'])){
 
 <div class="heading">
    <h3>contact us</h3>
-   <p> <a href="home.php">home</a> / contact </p>
+   <p> <a href="home.php">Beranda</a> / Kontak kami </p>
 </div>
 
 <section class="contact">
 
    <form action="" method="post">
-      <h3>Ada yang ingin ditanyakan?</h3>
+      <h3 style="color: white;">Ada yang ingin ditanyakan?</h3>
       <input type="text" name="name" required placeholder="Masukan nama anda" class="box">
       <input type="email" name="email" required placeholder="Masukan email anda" class="box">
       <input type="number" name="number" required placeholder="Masukan Nomor Anda" class="box">
       <textarea name="message" class="box" placeholder="Masukan Pesan" id="" cols="30" rows="10"></textarea>
-      <input type="submit" value="send message" name="send" class="btn">
+      <input type="submit" value="send message" name="send" class="btn submit-btn">
+
+
    </form>
 
 </section>

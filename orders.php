@@ -10,6 +10,10 @@ if (!isset($_SESSION['user_id'])) {
     header('location: login.php');
     exit;
 }
+
+// Inisialisasi $community_link
+$community_link = "";
+
 ?>
 
 <!DOCTYPE html>
@@ -64,7 +68,7 @@ if (!isset($_SESSION['user_id'])) {
 
       /* CSS for button */
       .watch-video-btn {
-         background-color: #4CAF50; /* Green */
+         background-color: var(--purple);
          border: none;
          color: white;
          padding: 10px 20px;
@@ -80,7 +84,7 @@ if (!isset($_SESSION['user_id'])) {
       }
 
       .watch-video-btn:hover {
-         background-color: #45a049; /* Darker Green */
+         background-color: var(--orange);
       }
 
       .watch-video-btn[disabled] {
@@ -94,7 +98,7 @@ if (!isset($_SESSION['user_id'])) {
 
    <div class="heading">
       <h3>Your Orders</h3>
-      <p><a href="home.php">Home</a> / Orders</p>
+      <p><a href="home.php">Beranda</a> / Pesanan</p>
    </div>
 
    <!-- Video pop-up -->
@@ -109,7 +113,7 @@ if (!isset($_SESSION['user_id'])) {
    </div>
 
    <section class="placed-orders">
-      <h1 class="title">Placed Orders</h1>
+      <h1 class="title">Pesanan kamu</h1>
       <div class="box-container">
          <?php
          $user_id = $_SESSION['user_id'];
@@ -137,19 +141,19 @@ if (!isset($_SESSION['user_id'])) {
                   <p>Metode pembayaran: <span><?php echo $fetch_orders['method']; ?></span></p>
                   <p>Harga: <span>Rp<?php echo $total_price; ?>.000</span></p>
                   <p>Status pembayaran: <span style="color:<?php echo $payment_status == 'pending' ? 'red' : 'green'; ?>"><?php echo $payment_status == 'pending' ? 'Menunggu verifikasi admin' : $payment_status; ?></span></p>
-                  <?php if ($video_url) : ?>
-                     <!-- Tombol "Tonton Video" -->
-                     <button class="watch-video-btn" <?php echo $payment_status == 'pending' ? 'disabled' : ''; ?> data-video-url="<?php echo $video_url; ?>">Tonton Video</button>
-                  <?php endif; ?>
-                  <!-- Tombol "Link Komunitas" -->
+                    <!-- Tombol video -->
                   <?php if ($community_link) : ?>
-                     <a href="<?php echo $community_link; ?>" class="watch-video-btn" target="_blank">Link Komunitas</a>
-                  <?php endif; ?>
+                     <button class="watch-video-btn" <?php echo $payment_status !== 'completed' ? 'disabled' : ''; ?> data-video-url="<?php echo $video_url; ?>">Tonton Video</button>
+                 
+                  <!-- tombol komunitas -->
+                  <a href="<?php echo $community_link; ?>" class="watch-video-btn" <?php echo $payment_status !== 'completed' ? 'disabled' : ''; ?>>Lihat Komunitas</a>        
+                
+                   <?php endif; ?>
                </div>
          <?php
             }
          } else {
-            echo '<p class="empty">No orders placed yet!</p>';
+            echo '<p class="empty">Kamu belum ada melakukan pemesanan!</p>';
          }
          ?>
       </div>

@@ -127,7 +127,8 @@ section{
 .btn:hover,
 .option-btn:hover,
 .delete-btn:hover{
-   background-color: var(--black);
+   background-color: var(--orange);
+   color: white;
 }
 
 .white-btn,
@@ -136,7 +137,7 @@ section{
 }
 
 .option-btn{
-   background-color: var(--orange);
+   background-color: var(--purple);
 }
 
 .delete-btn{
@@ -144,8 +145,8 @@ section{
 }
 
 .white-btn:hover{
-   background-color: var(--white);
-   color:var(--black);
+   background-color: var(--orange);
+   color:var(--white);
 }
 
 .heading{
@@ -238,9 +239,15 @@ section{
    text-decoration: underline;
 }
 
-.header .header-1{
-   background-color: var(--light-bg);
+.header .header-1 {
+   background-color:var(--purple);
 }
+
+.header .header-2 {
+   background-color:var(--purple);
+   box-shadow: var(--box-shadow);
+}
+
 
 .header .header-1 .flex{
    padding:2rem;
@@ -251,15 +258,13 @@ section{
    margin:0 auto;
 }
 
-.header .header-2{
-   background-color: var(--light-bg);
-   box-shadow: var(--box-shadow);
-}
+
 
 .header .header-2.active{
    position: fixed;
    top:0; left:0; right:0;
    z-index: 1000;
+   
 }
 
 .header .header-2 .flex{
@@ -275,11 +280,11 @@ section{
 .header .header-1 .flex .share a{
    font-size: 2.5rem;
    margin-right: 1.5rem;
-   color:var(--black);
+   color:var(--white);
 }
 
 .header .header-1 .flex .share a:hover{
-   color:var(--purple);
+   color:var(--black);
 }
 
 .header .header-1 .flex p{
@@ -290,36 +295,47 @@ section{
 .header .header-1 .flex p a{
    color:var(--purple);
 }
-
-.header .header-1 .flex p a:hover{
-   text-decoration: underline;
+.header .header-1 .flex p{
+   font-size: 2rem;
+   color:var(--light-color);
+   margin: 0;
 }
+.header .header-1 .flex p a{
+   color:var(--white);
+   text-decoration: none; /* Hapus properti ini */
+  
+}
+
+
+/* .header .header-1 .flex p a:hover{
+   text-decoration: underline;
+} */
 
 .header .header-2 .flex .logo{
    font-size: 2.5rem;
-   color:var(--purple);
+   color:var(--white);
 }
 
 .header .header-2 .flex .navbar a{
    margin:0 1rem;
    font-size: 2rem;
-   color:var(--light-color);
+   color:var(--white);
 }
 
-.header .header-2 .flex .navbar a:hover{
-   color:var(--purple);
-   text-decoration: underline;
-}
+/* .header .header-2 .flex .navbar a:hover{
+   color:var(--white);
+   text-decoration: underline; */
+/* } */
 
 .header .header-2 .flex .icons > *{
    font-size: 2.5rem;
-   color:var(--black);
+   color:var(--white);
    cursor: pointer;
    margin-left: 1.5rem;
 }
 
 .header .header-2 .flex .icons > *:hover{
-   color:var(--purple);
+   color:var(--black);
 }
 
 #menu-btn{
@@ -357,28 +373,16 @@ section{
 
 .header .header-2 .flex .user-box .delete-btn{
    margin-top: 0;
-   .home {
-      min-height: 70vh;
-      background: linear-gradient(rgba(0,0,0,.7), rgba(0,0,0,.7)), url(../images/homebg1.webp) no-repeat;
-      background-size: cover;
-      background-position: center;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      animation: slideshow 10s infinite alternate;
-  }
-  
-  @keyframes slideshow {
-      0% {
-          background-image: url(../images/home.jpeg);
-      }
-      50% {
-          background-image: url(../images/homebg2.webp);
-      }
-      100% {
-          background-image: url(../images/homebg1.webp);
-      }
-  }
+}
+
+.home{
+   min-height: 70vh;
+   background:linear-gradient(rgba(0,0,0,.7), rgba(0,0,0,.7)), url(../images/homebg.webp) no-repeat;
+   background-size: cover;
+   background-position: center;
+   display: flex;
+   align-items: center;
+   justify-content: center;
 }
 
 .home .content{

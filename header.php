@@ -36,11 +36,11 @@ if (isset($_SESSION['user_id'])) {
          <a href="index.php" class="logo">Wirainsipirasi</a>
 
          <nav class="navbar">
-            <a href="home.php">home</a>
-            <a href="about.php">about</a>
-            <a href="shop.php">course</a>
-            <a href="contact.php">contact</a>
-            <a href="orders.php">orders</a>
+            <a href="home.php">Beranda</a>
+            <a href="about.php">Tentang Kami</a>
+            <a href="shop.php">Kelas</a>
+            <a href="contact.php">Kontak</a>
+            <a href="orders.php">Pesanan</a>
          </nav>
 
          <div class="icons">
