@@ -10,10 +10,6 @@ if (!isset($_SESSION['user_id'])) {
     header('location: login.php');
     exit;
 }
-
-// Inisialisasi $community_link
-$community_link = "";
-
 ?>
 
 <!DOCTYPE html>
@@ -113,7 +109,7 @@ $community_link = "";
    </div>
 
    <section class="placed-orders">
-      <h1 class="title">Pesanan kamu</h1>
+      <h1 class="title">Placed Orders</h1>
       <div class="box-container">
          <?php
          $user_id = $_SESSION['user_id'];
@@ -143,10 +139,10 @@ $community_link = "";
                   <p>Status pembayaran: <span style="color:<?php echo $payment_status == 'pending' ? 'red' : 'green'; ?>"><?php echo $payment_status == 'pending' ? 'Menunggu verifikasi admin' : $payment_status; ?></span></p>
                     <!-- Tombol video -->
                   <?php if ($community_link) : ?>
-                     <button class="watch-video-btn" <?php echo $payment_status !== 'completed' ? 'disabled' : ''; ?> data-video-url="<?php echo $video_url; ?>">Tonton Video</button>
+                     <button class="watch-video-btn" <?php echo $payment_status == 'pending' ? 'disabled' : ''; ?> data-video-url="<?php echo $video_url; ?>">Tonton Video</button>
                  
                   <!-- tombol komunitas -->
-                  <a href="<?php echo $community_link; ?>" class="watch-video-btn" <?php echo $payment_status !== 'completed' ? 'disabled' : ''; ?>>Lihat Komunitas</a>        
+                  <a href="<?php echo $community_link; ?>" class="watch-video-btn community-btn" <?php echo $payment_status == 'pending' ? 'disabled' : ''; ?>>Lihat Komunitas</a>        
                 
                    <?php endif; ?>
                </div>
@@ -164,43 +160,23 @@ $community_link = "";
    <!-- Custom JS file link -->
    <script src="js/script.js"></script>
 
-   <!-- JavaScript for video pop-up -->
+   <!-- JavaScript for button behavior -->
    <script>
       document.addEventListener('DOMContentLoaded', function() {
-         var videoPopup = document.getElementById('video-popup');
-         var closeBtn = document.getElementById('close-btn');
-         var popupVideo = document.getElementById('popup-video');
-
-         // Function to open video pop-up
-         function openVideoPopup(videoUrl) {
-            popupVideo.src = videoUrl;
-            videoPopup.style.display = 'block';
-         }
-
-         // Function to close video pop-up
-         function closeVideoPopup() {
-            popupVideo.pause(); // Pause the video
-            videoPopup.style.display = 'none';
-         }
-
-         // Close video pop-up when close button is clicked
-         closeBtn.addEventListener('click', closeVideoPopup);
-
-         // Close video pop-up when clicking outside the pop-up
-         window.addEventListener('click', function(event) {
-            if (event.target == videoPopup) {
-               closeVideoPopup();
-            }
-         });
-
-         // Get all "Tonton Video" buttons
-         var watchVideoBtns = document.querySelectorAll('.watch-video-btn');
+         // Get all "Lihat Komunitas" buttons
+         var communityBtns = document.querySelectorAll('.community-btn');
 
          // Loop through each button and add click event listener
-         watchVideoBtns.forEach(function(btn) {
-            btn.addEventListener('click', function() {
-               var videoUrl = this.getAttribute('data-video-url');
-               openVideoPopup(videoUrl);
+         communityBtns.forEach(function(btn) {
+            btn.addEventListener('click', function(event) {
+               // Prevent the default behavior (opening video pop-up)
+               event.preventDefault();
+
+               // Get the community link from the button's href attribute
+               var communityLink = this.getAttribute('href');
+
+               // Redirect the user to the community link
+               window.location.href = communityLink;
             });
          });
       });
