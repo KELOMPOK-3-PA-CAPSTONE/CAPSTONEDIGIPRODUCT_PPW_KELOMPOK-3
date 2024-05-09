@@ -121,6 +121,7 @@ if (!isset($_SESSION['user_id'])) {
                $product_name = preg_replace('/[^A-Za-z\s]/', '', $fetch_orders['product_name']);
                $payment_status = $fetch_orders['payment_status'];
                $video_url = null;
+               $community_link = null;
 
                if ($payment_status == 'completed') {
                   $total_price_without_comma = str_replace(',', '', $total_price);
