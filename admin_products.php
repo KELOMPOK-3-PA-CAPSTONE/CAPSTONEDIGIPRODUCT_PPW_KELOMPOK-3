@@ -3,6 +3,15 @@ include 'config.php';
 
 session_start();
 
+$admin_id = isset($_SESSION['admin_id']) ? $_SESSION['admin_id'] : null;
+$admin_role = isset($_SESSION['admin_role']) ? $_SESSION['admin_role'] : null;
+
+// cek biar admin aj yg login
+if (!$admin_id || $admin_role !== 'admin') {
+    header('location:login.php');
+    exit;
+}
+
 $admin_id = $_SESSION['admin_id'];
 
 if (!isset($admin_id)) {
