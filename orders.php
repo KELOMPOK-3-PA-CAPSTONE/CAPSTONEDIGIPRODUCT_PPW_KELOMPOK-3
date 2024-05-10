@@ -138,14 +138,10 @@ if (!isset($_SESSION['user_id'])) {
                   <p>Metode pembayaran: <span><?php echo $fetch_orders['method']; ?></span></p>
                   <p>Harga: <span>Rp<?php echo $total_price; ?>.000</span></p>
                   <p>Status pembayaran: <span style="color:<?php echo $payment_status == 'pending' ? 'red' : 'green'; ?>"><?php echo $payment_status == 'pending' ? 'Menunggu verifikasi admin' : $payment_status; ?></span></p>
-                    <!-- Tombol video -->
-                  <?php if ($community_link) : ?>
-                     <button class="watch-video-btn" <?php echo $payment_status == 'pending' ? 'disabled' : ''; ?> data-video-url="<?php echo $video_url; ?>">Tonton Video</button>
-                 
-                  <!-- tombol komunitas -->
-                  <a href="<?php echo $community_link; ?>" class="watch-video-btn community-btn" <?php echo $payment_status == 'pending' ? 'disabled' : ''; ?>>Lihat Komunitas</a>        
-                
-                   <?php endif; ?>
+                  <!-- Tombol video -->
+                  <button class="watch-video-btn" <?php echo $payment_status == 'pending' ? 'disabled' : ''; ?> data-video-url="<?php echo $video_url; ?>">Tonton Video</button>
+                  <!-- Tombol komunitas -->
+                  <a href="<?php echo $community_link; ?>" class="watch-video-btn community-btn" <?php echo $payment_status == 'pending' ? 'disabled' : ''; ?>>Lihat Komunitas</a>
                </div>
          <?php
             }
@@ -179,6 +175,39 @@ if (!isset($_SESSION['user_id'])) {
                // Redirect the user to the community link
                window.location.href = communityLink;
             });
+         });
+
+         // Get all "Tonton Video" buttons
+         var videoBtns = document.querySelectorAll('.watch-video-btn');
+
+         // Loop through each button and add click event listener
+         videoBtns.forEach(function(btn) {
+            btn.addEventListener('click', function(event) {
+               // Prevent the default behavior (opening video pop-up or following link)
+               event.preventDefault();
+
+               // Get the video URL from the button's data attribute
+               var videoUrl = this.getAttribute('data-video-url');
+
+               // If video URL exists, open the video pop-up
+               if (videoUrl) {
+                  // Set the video source
+                  var videoSource = document.getElementById('popup-video').querySelector('source');
+                  videoSource.setAttribute('src', videoUrl);
+
+                  // Reload the video
+                  var popupVideo = document.getElementById('popup-video');
+                  popupVideo.load();
+
+                  // Display the video pop-up
+                  document.getElementById('video-popup').style.display = 'block';
+               }
+            });
+         });
+
+         // Close video pop-up when close button is clicked
+         document.getElementById('close-btn').addEventListener('click', function() {
+            document.getElementById('video-popup').style.display = 'none';
          });
       });
    </script>
