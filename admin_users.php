@@ -12,8 +12,19 @@ if(!isset($admin_id)){
 
 if(isset($_GET['delete'])){
    $delete_id = $_GET['delete'];
-   // Pastikan hanya admin yang bisa menghapus pengguna
-   mysqli_query($conn, "DELETE FROM `users` WHERE id = '$delete_id' AND user_type != 'admin'") or die('query failed');
+   
+   // Hapus terlebih dahulu semua pesanan yang terkait dengan pengguna yang akan dihapus
+   $delete_orders_query = mysqli_query($conn, "DELETE FROM orders WHERE user_id = '$delete_id'");
+   if(!$delete_orders_query) {
+       die("Error: " . mysqli_error($conn)); // Menampilkan pesan kesalahan jika terjadi kesalahan pada kueri DELETE
+   }
+   
+   // Kemudian hapus pengguna
+   $delete_user_query = mysqli_query($conn, "DELETE FROM `users` WHERE id = '$delete_id' AND user_type != 'admin'");
+   if(!$delete_user_query) {
+       die("Error: " . mysqli_error($conn)); // Menampilkan pesan kesalahan jika terjadi kesalahan pada kueri DELETE
+   }
+   
    header('location:admin_users.php');
 }
 

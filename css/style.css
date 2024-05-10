@@ -969,7 +969,7 @@ section{
    .header .header-2 .flex .navbar{
       position: absolute;
       top:99%; left:0; right:0;
-      background-color: var(--white);
+      background-color: var(--purple);
       border-top: var(--border);
       border-bottom: var(--border);
       clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);

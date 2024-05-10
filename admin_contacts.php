@@ -8,12 +8,18 @@ $admin_id = $_SESSION['admin_id'];
 
 if(!isset($admin_id)){
    header('location:login.php');
-};
+   exit; // tambahkan exit setelah redirect untuk mencegah eksekusi lebih lanjut
+}
 
 if(isset($_GET['delete'])){
    $delete_id = $_GET['delete'];
-   mysqli_query($conn, "DELETE FROM `message` WHERE id = '$delete_id'") or die('query failed');
+   // Gunakan parameterisasi untuk mencegah serangan SQL Injection
+   $stmt = mysqli_prepare($conn, "DELETE FROM `message` WHERE id = ?");
+   mysqli_stmt_bind_param($stmt, "i", $delete_id);
+   mysqli_stmt_execute($stmt);
+   mysqli_stmt_close($stmt);
    header('location:admin_contacts.php');
+   exit; // tambahkan exit setelah redirect untuk mencegah eksekusi lebih lanjut
 }
 
 ?>

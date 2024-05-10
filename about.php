@@ -1,8 +1,6 @@
 <?php
-
 include 'config.php';
 session_start();
-
 ?>
 
 <!DOCTYPE html>
@@ -23,6 +21,7 @@ session_start();
       .box {
          position: relative;
          overflow: hidden;
+         z-index: 1; /* Menetapkan urutan tumpukan tinggi untuk elemen .box */
       }
 
       .box img {
@@ -34,19 +33,6 @@ session_start();
       .box:hover img {
          transform: scale(1.1);
       }
-
-      .box::before {
-         content: "";
-         position: absolute;
-         top: 0;
-         left: 0;
-         width: 100%;
-         height: 100%;
-         background: rgba(0, 0, 0, 0.5);
-         opacity: 0;
-         transition: opacity 0.3s ease;
-      }
-
       .box:hover::before {
          opacity: 1;
       }
@@ -79,8 +65,13 @@ session_start();
          opacity: 0;
       }
 
-      
+      footer {
+         z-index: 0; /* Menetapkan urutan tumpukan rendah untuk footer */
+      }
    </style>
+</head>
+<body>
+   
 
 </head>
 <body>

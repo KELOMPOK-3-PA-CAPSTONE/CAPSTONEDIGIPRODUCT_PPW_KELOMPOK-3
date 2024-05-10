@@ -20,6 +20,11 @@ if(isset($_POST['submit'])){
       $message[] = 'Confirm password not matched!';
    }
 
+   // Validasi nama harus mengandung setidaknya satu huruf dari abjad A-Z
+   if(!preg_match('/[a-zA-Z]/', $name)){
+      $message[] = 'Name must contain at least one letter (a-z or A-Z)!';
+   }
+
    // Cek apakah email sudah terdaftar
    $select_users = mysqli_query($conn, "SELECT * FROM `users` WHERE email = '$email'") or die('Query failed');
    if(mysqli_num_rows($select_users) > 0){
